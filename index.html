@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editable Professional Digital Communication Project</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--text:#172033;--muted:#667085;--accent:#3157d5;--line:#dfe4ee;--dark:#111827}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+header{background:linear-gradient(135deg,#142047,#3157d5);color:#fff;padding:42px 7%}.topline{display:flex;justify-content:space-between;gap:15px;align-items:center}h1{font-size:clamp(30px,5vw,52px);margin:12px 0 8px}header p{max-width:850px;color:#e7ebff}.pill{display:inline-block;padding:7px 11px;border-radius:18px;background:#e9edff;color:#2945a8;font-weight:800;font-size:12px}.hero-pill{background:rgba(255,255,255,.15);color:white}
+button{border:0;cursor:pointer;font-weight:700;border-radius:10px;padding:10px 14px}.editbtn{background:#fff;color:#172b72}.savebtn{background:#3157d5;color:#fff}.resetbtn{background:#eef1f6;color:#30394a}.toolbar{display:none;position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);padding:10px 5%;gap:8px;justify-content:center}.toolbar.show{display:flex}
+nav{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);padding:10px 5%;display:flex;gap:8px;overflow:auto}nav button{background:#eef2ff;color:#2945a8;white-space:nowrap}nav button.active{background:var(--accent);color:#fff}
+main{max-width:1200px;margin:30px auto;padding:0 20px}.role{display:none}.role.active{display:block}.hero{margin-bottom:22px}.hero h2{font-size:32px;margin:7px 0}.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 5px 20px rgba(30,45,80,.05)}.card h3{margin-top:0}
+.email{border:1px solid #dce2ed;border-radius:14px;overflow:hidden}.email-head{background:#f8f9fc;padding:14px 17px;border-bottom:1px solid var(--line)}.email-body{padding:20px}.email-body p{margin:0 0 14px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{background:#f7f8fc;border:1px solid var(--line);padding:14px;border-radius:13px}.kpi strong{display:block;font-size:24px}.kpi span{font-size:12px;color:var(--muted)}
+.chart{height:190px;display:flex;align-items:flex-end;gap:12px;padding:10px 5px 0;border-bottom:1px solid #ccd2df}.col{flex:1;background:linear-gradient(#6d85e8,#3157d5);border-radius:8px 8px 0 0;min-width:15px;position:relative}.col span{position:absolute;bottom:-25px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--muted);white-space:nowrap}
+.av{background:var(--dark);color:#fff;border-radius:16px;padding:22px}.slide{border:1px solid #394459;border-radius:12px;padding:14px;margin:10px 0;background:#182033}.slide b{color:#bfcaff}
+.callout{border-left:4px solid var(--accent);padding:12px 16px;background:#eef2ff;border-radius:8px;margin-top:12px}.hidden{display:none!important}
+.editable{outline:0}.edit-mode [contenteditable="true"]{outline:2px dashed #6d85e8;background:#f7f9ff;border-radius:5px;padding:2px}.field-label{display:none;color:#3157d5;font-size:11px;font-weight:800;margin-bottom:4px}.edit-mode .field-label{display:block}
+textarea,input{width:100%;font:inherit;border:1px solid #bfc7d8;border-radius:8px;padding:9px}.editor-note{font-size:13px;color:#667085;margin:8px 0}
+footer{text-align:center;padding:35px;color:var(--muted);font-size:13px}
+@media(max-width:700px){.kpis{grid-template-columns:repeat(2,1fr)}.topline{display:block}.topline button{margin-top:12px}}
+</style>
+</head>
+<body>
+<header>
+<div class="topline"><span class="pill hero-pill" id="projectLabel">PEW • DIGITAL COMMUNICATION</span><button class="editbtn" onclick="toggleEdit()">✏️ Edit Project</button></div>
+<h1 contenteditable="false" data-key="projectTitle">Professional Digital Communication</h1>
+<p contenteditable="false" data-key="projectSubtitle">A role-based communication showcase using professional emails, graphical representations, AV presentation content and dashboards.</p>
+</header>
+
+<div class="toolbar" id="toolbar">
+<button class="savebtn" onclick="saveProject()">💾 Save Changes</button>
+<button class="resetbtn" onclick="resetProject()">↺ Reset Saved Data</button>
+<span class="editor-note">Edit any blue-dashed text, email, bullet, KPI or slide. Changes are saved in this browser.</span>
+</div>
+
+<nav>
+<button class="active" onclick="showRole('recruiter',this)">1. IT Recruiter</button>
+<button onclick="showRole('clo',this)">2. Chief Laughing Officer</button>
+<button onclick="showRole('coach',this)">3. Football Coach</button>
+<button onclick="showRole('broker',this)">4. Stock Broker</button>
+</nav>
+
+<main id="app">
+
+<section id="recruiter" class="role active">
+<div class="hero"><span class="pill">ROLE 01</span><h2 contenteditable="false" data-key="rTitle">IT Company Recruiter</h2><p contenteditable="false" data-key="rSubtitle" class="muted">Hiring communication for a technology company.</p></div>
+<div class="card"><h3>📧 Professional Email</h3><div class="email"><div class="email-head"><b>Subject:</b> <span contenteditable="false" data-key="rSubject">Invitation to Technical Interview – Software Engineer Position</span><br><b>To:</b> <span contenteditable="false" data-key="rTo">Shortlisted Candidate</span></div><div class="email-body" contenteditable="false" data-key="rEmail"><p>Dear Candidate,</p><p>Thank you for applying for the Software Engineer position at NovaTech Solutions. We are pleased to inform you that your application has been shortlisted for the next stage of our selection process. We appreciate the time you have invested in your application.</p><p>Your technical interview will focus on problem-solving, programming fundamentals and your approach to real-world software development. Please confirm your preferred interview slot through the recruitment portal by the stated deadline. If you have any questions, please reply to this email and our team will assist you.</p><p>If you require any reasonable assistance during the interview process, please let us know in advance.</p><p>We look forward to speaking with you.</p><p>Regards,<br><b>Talent Acquisition Team</b><br>NovaTech Solutions</p></div></div></div>
+<div class="grid">
+<div class="card"><h3>📊 Graphical Representations</h3><p class="muted" contenteditable="false" data-key="rGraphTitle">Recruitment Overview</p><div class="chart"><div class="col" style="height:95%"><span contenteditable="false" data-key="rBar1">Applications</span></div><div class="col" style="height:65%"><span contenteditable="false" data-key="rBar2">Screened</span></div><div class="col" style="height:40%"><span contenteditable="false" data-key="rBar3">Interview</span></div><div class="col" style="height:22%"><span contenteditable="false" data-key="rBar4">Offers</span></div></div></div></div>
+<div class="card"><h3>🎥 AV Presentation</h3><div class="av" contenteditable="false" data-key="rAV"><div class="slide"><b>Slide 1 — Welcome</b><br>How our IT recruitment process works.</div><div class="slide"><b>Slide 2 — Shortlisting</b><br>Application review → skill match → shortlist.</div><div class="slide"><b>Slide 3 — Interview</b><br>Technical discussion + problem-solving assessment.</div><div class="slide"><b>Slide 4 — Selection</b><br>Feedback → offer → onboarding.</div><div class="callout">Suggested narration: “Our recruitment process is designed to communicate clearly, evaluate relevant skills and provide candidates with a respectful experience.”</div></div></div>
+<div class="card"><h3>📈 Recruiter Dashboard</h3><div class="kpis"><div class="kpi"><strong contenteditable="false" data-key="rK1">240</strong><span contenteditable="false" data-key="rL1">Applications</span></div><div class="kpi"><strong contenteditable="false" data-key="rK2">72</strong><span contenteditable="false" data-key="rL2">Shortlisted</span></div><div class="kpi"><strong contenteditable="false" data-key="rK3">28</strong><span contenteditable="false" data-key="rL3">Interviews</span></div><div class="kpi"><strong contenteditable="false" data-key="rK4">8</strong><span contenteditable="false" data-key="rL4">Offers</span></div></div></div>
+</section>
+
+<section id="clo" class="role">
+<div class="hero"><span class="pill">ROLE 02</span><h2 contenteditable="false" data-key="cTitle">Chief Laughing Officer</h2><p contenteditable="false" data-key="cSubtitle" class="muted">Employee wellbeing and positive workplace communication.</p></div>
+<div class="card"><h3>📧 Professional Email</h3><div class="email"><div class="email-head"><b>Subject:</b> <span contenteditable="false" data-key="cSubject">Building a Healthier and Happier Workplace</span><br><b>To:</b> <span contenteditable="false" data-key="cTo">All Employees</span></div><div class="email-body" contenteditable="false" data-key="cEmail"><p>Hello Team,</p><p>A healthy workplace is built through small, consistent actions. This month, we are introducing short wellbeing activities designed to encourage connection, relaxation and positive communication. Everyone is welcome to participate, and no one is expected to join an activity that does not suit them.</p><p>You can join the weekly “10-Minute Recharge”, team laughter sessions and optional feedback circles. Participation is voluntary, and respectful feedback is always welcome.</p><p>Let us make wellbeing part of the way we work—not an extra task.</p><p>Warm regards,<br><b>Chief Laughing Officer</b><br>People & Culture Team</p></div></div></div>
+<div class="grid">
+<div class="card"><h3>📊 Graphical Representations</h3><p class="muted" contenteditable="false" data-key="cGraphTitle">Wellbeing Activity Overview</p><div class="chart"><div class="col" style="height:80%"><span contenteditable="false" data-key="cBar1">Recharge</span></div><div class="col" style="height:62%"><span contenteditable="false" data-key="cBar2">Laughter</span></div><div class="col" style="height:48%"><span contenteditable="false" data-key="cBar3">Feedback</span></div><div class="col" style="height:70%"><span contenteditable="false" data-key="cBar4">Wellness</span></div></div></div></div>
+<div class="card"><h3>🎥 AV Presentation</h3><div class="av" contenteditable="false" data-key="cAV"><div class="slide"><b>Slide 1 — Why Wellbeing?</b><br>Employees perform better when they have space to recharge.</div><div class="slide"><b>Slide 2 — 10-Minute Recharge</b><br>Short break • stretch • breathe • reconnect.</div><div class="slide"><b>Slide 3 — Connect</b><br>Team activities that encourage respectful interaction.</div><div class="slide"><b>Slide 4 — Listen</b><br>Collect feedback and use it to improve the workplace.</div><div class="callout">Suggested narration: “Wellbeing is not only about having fun. It is about creating a workplace where people can communicate, recharge and feel respected.”</div></div></div>
+<div class="card"><h3>📈 Wellbeing Dashboard</h3><div class="kpis"><div class="kpi"><strong contenteditable="false" data-key="cK1">82%</strong><span contenteditable="false" data-key="cL1">Participation</span></div><div class="kpi"><strong contenteditable="false" data-key="cK2">4.3/5</strong><span contenteditable="false" data-key="cL2">Wellbeing score</span></div><div class="kpi"><strong contenteditable="false" data-key="cK3">76%</strong><span contenteditable="false" data-key="cL3">Engagement</span></div><div class="kpi"><strong contenteditable="false" data-key="cK4">91%</strong><span contenteditable="false" data-key="cL4">Positive feedback</span></div></div></div>
+</section>
+
+<section id="coach" class="role">
+<div class="hero"><span class="pill">ROLE 03</span><h2 contenteditable="false" data-key="fTitle">Football Coach</h2><p contenteditable="false" data-key="fSubtitle" class="muted">Team preparation, performance and match-day communication.</p></div>
+<div class="card"><h3>📧 Professional Email</h3><div class="email"><div class="email-head"><b>Subject:</b> <span contenteditable="false" data-key="fSubject">Match Preparation Plan – Saturday Fixture</span><br><b>To:</b> <span contenteditable="false" data-key="fTo">First Team Squad</span></div><div class="email-body" contenteditable="false" data-key="fEmail"><p>Team,</p><p>Saturday’s match requires disciplined preparation and clear communication. Please arrive 90 minutes before kickoff for the warm-up and tactical briefing. If you have a genuine difficulty with the timing, inform the coaching team as early as possible.</p><p>Our focus areas are defensive organization, quick transitions and accurate passing. Please review the match plan and raise any questions during tomorrow’s training session. During the match, communicate clearly, support teammates and avoid unnecessary criticism.</p><p>Stay focused, support one another and communicate respectfully on and off the field.</p><p>Regards,<br><b>Head Coach</b></p></div></div></div>
+<div class="grid">
+<div class="card"><h3>📊 Graphical Representations</h3><p class="muted" contenteditable="false" data-key="fGraphTitle">Match Performance Overview</p><div class="chart"><div class="col" style="height:70%"><span contenteditable="false" data-key="fBar1">Pass %</span></div><div class="col" style="height:54%"><span contenteditable="false" data-key="fBar2">Poss.</span></div><div class="col" style="height:82%"><span contenteditable="false" data-key="fBar3">Shots</span></div><div class="col" style="height:45%"><span contenteditable="false" data-key="fBar4">Goals</span></div></div></div></div>
+<div class="card"><h3>🎥 AV Presentation</h3><div class="av" contenteditable="false" data-key="fAV"><div class="slide"><b>Slide 1 — Match Objective</b><br>Control the game through disciplined possession and movement.</div><div class="slide"><b>Slide 2 — Without the Ball</b><br>Maintain shape and communicate early.</div><div class="slide"><b>Slide 3 — Transition</b><br>Recover quickly and attack space when possession changes.</div><div class="slide"><b>Slide 4 — Team Mindset</b><br>Respect teammates, opponents and officials.</div><div class="callout">Suggested narration: “The match plan gives every player a clear role while keeping communication simple, respectful and focused on the team.”</div></div></div>
+<div class="card"><h3>📈 Team Performance Dashboard</h3><div class="kpis"><div class="kpi"><strong contenteditable="false" data-key="fK1">86%</strong><span contenteditable="false" data-key="fL1">Pass accuracy</span></div><div class="kpi"><strong contenteditable="false" data-key="fK2">57%</strong><span contenteditable="false" data-key="fL2">Possession</span></div><div class="kpi"><strong contenteditable="false" data-key="fK3">12</strong><span contenteditable="false" data-key="fL3">Shots</span></div><div class="kpi"><strong contenteditable="false" data-key="fK4">2</strong><span contenteditable="false" data-key="fL4">Goals</span></div></div></div>
+</section>
+
+<section id="broker" class="role">
+<div class="hero"><span class="pill">ROLE 04</span><h2 contenteditable="false" data-key="sTitle">Stock Broker</h2><p contenteditable="false" data-key="sSubtitle" class="muted">Clear, responsible and data-driven market communication.</p></div>
+<div class="card"><h3>📧 Professional Email</h3><div class="email"><div class="email-head"><b>Subject:</b> <span contenteditable="false" data-key="sSubject">Weekly Market Update – Key Movements and Risk Reminder</span><br><b>To:</b> <span contenteditable="false" data-key="sTo">Client</span></div><div class="email-body" contenteditable="false" data-key="sEmail"><p>Dear Client,</p><p>Please find below a brief summary of this week’s portfolio review. Market movements were influenced by company results, economic indicators and changes in investor sentiment. The information is provided for discussion and should be considered alongside your own financial objectives.</p><p>Your portfolio should be reviewed against your investment objectives, time horizon and risk tolerance. Historical performance does not guarantee future returns, and no particular outcome is guaranteed. Please reply if you would like to discuss the information further.</p><p>Please contact us if you would like to discuss diversification or your current allocation.</p><p>Regards,<br><b>Client Advisory Desk</b><br>ABC Securities</p></div></div></div>
+<div class="grid">
+<div class="card"><h3>📊 Graphical Representations</h3><p class="muted" contenteditable="false" data-key="sGraphTitle">Weekly Market Movement</p><div class="chart"><div class="col" style="height:48%"><span contenteditable="false" data-key="sBar1">Mon</span></div><div class="col" style="height:63%"><span contenteditable="false" data-key="sBar2">Tue</span></div><div class="col" style="height:56%"><span contenteditable="false" data-key="sBar3">Wed</span></div><div class="col" style="height:78%"><span contenteditable="false" data-key="sBar4">Thu</span></div><div class="col" style="height:68%"><span contenteditable="false" data-key="sBar5">Fri</span></div></div></div></div>
+<div class="card"><h3>🎥 AV Presentation</h3><div class="av" contenteditable="false" data-key="sAV"><div class="slide"><b>Slide 1 — Market Snapshot</b><br>What moved the market this week?</div><div class="slide"><b>Slide 2 — Portfolio View</b><br>Review allocation across major asset categories.</div><div class="slide"><b>Slide 3 — Risk</b><br>Risk depends on volatility, concentration, horizon and investor objectives.</div><div class="slide"><b>Slide 4 — Responsible Communication</b><br>Use evidence, disclose uncertainty and avoid promises.</div><div class="callout">Suggested narration: “A broker’s digital communication should help clients understand information and risk without creating unrealistic expectations.”</div></div></div>
+<div class="card"><h3>📈 Portfolio Dashboard</h3><div class="kpis"><div class="kpi"><strong contenteditable="false" data-key="sK1">₹10L</strong><span contenteditable="false" data-key="sL1">Illustrative value</span></div><div class="kpi"><strong contenteditable="false" data-key="sK2">+4.2%</strong><span contenteditable="false" data-key="sL2">Illustrative return</span></div><div class="kpi"><strong contenteditable="false" data-key="sK3">Moderate</strong><span contenteditable="false" data-key="sL3">Risk profile</span></div><div class="kpi"><strong contenteditable="false" data-key="sK4">5</strong><span contenteditable="false" data-key="sL4">Asset categories</span></div></div><p class="muted">Demo figures only — not investment advice or real market data.</p></div>
+</section>
+</main>
+<footer contenteditable="false" data-key="footer">Professional Digital Communication Project • Prepared for academic demonstration • Dashboard figures are illustrative unless stated otherwise.</footer>
+
+<script>
+const STORAGE='pewEditableProjectV2';
+let editing=false;
+function showRole(id,btn){document.querySelectorAll('.role').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function toggleEdit(){
+ editing=!editing; document.body.classList.toggle('edit-mode',editing);
+ document.getElementById('toolbar').classList.toggle('show',editing);
+ document.querySelectorAll('[data-key]').forEach(el=>el.contentEditable=editing?'true':'false');
+ document.querySelector('.editbtn').textContent=editing?'👁️ View Mode':'✏️ Edit Project';
+}
+function saveProject(){
+ const data={}; document.querySelectorAll('[data-key]').forEach(el=>data[el.dataset.key]=el.innerHTML);
+ localStorage.setItem(STORAGE,JSON.stringify(data)); alert('Changes saved on this browser.');
+}
+function loadProject(){
+ const data=JSON.parse(localStorage.getItem(STORAGE)||'{}');
+ document.querySelectorAll('[data-key]').forEach(el=>{if(data[el.dataset.key]!==undefined)el.innerHTML=data[el.dataset.key]});
+}
+function resetProject(){if(confirm('Reset all saved edits on this browser?')){localStorage.removeItem(STORAGE);location.reload();}}
+loadProject();
+</script>
+</body>
+</html>
